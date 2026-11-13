@@ -1,0 +1,14 @@
+:host { display: block; min-height: 100vh; background: linear-gradient(180deg, #f1f8ec 0%, #d7ebcb 100%); } 
+.cart { max-width: 800px; margin: 0 auto; padding: 16px; font-family: system-ui, sans-serif; }
+.row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+.qty { display: flex; align-items: center; gap: 8px; }
+.qty button { width: 28px; height: 28px; border: 1px solid #ccc; background: #fff; border-radius: 6px; cursor: pointer; }
+.remove { background: none; border: none; color: #b3261e; cursor: pointer; }
+.summary { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.actions { display: flex; gap: 12px; align-items: center; }
+.primary { background: #b3261e; color: #fff; padding: 8px 14px; border-radius: 8px; text-decoration: none; }
+.name { display: flex; align-items: center; gap: 10px; }
+.name img { width: 52px; height: 39px; object-fit: cover; border-radius: 6px; }
+
+/* Phone: stack each row */
+@media (max-width: 600px) { .row { grid-template-columns: 1fr 1fr; } }
