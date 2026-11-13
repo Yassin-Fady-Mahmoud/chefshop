@@ -15,7 +15,7 @@ export const routes: Routes = [
   {
     path: 'store',
     canActivate: [roleGuard], data: { roles: ['admin', 'student'] },
-    loadComponent: () => import('./features/store/store.component').then(m => m.StoreComponent),
+    loadChildren: () => import('./store/store.routes').then(m => m.STORE_ROUTES),
     title: 'Store | ChefShop',
   },
   // Member 3 - Fees + Payroll
@@ -42,3 +42,4 @@ export const routes: Routes = [
   { path: 'forbidden', loadComponent: () => import('./pages/forbidden/forbidden.component').then(m => m.ForbiddenComponent), title: 'Access denied' },
   { path: '**', redirectTo: '' },
 ];
+

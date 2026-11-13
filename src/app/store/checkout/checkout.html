@@ -1,0 +1,32 @@
+<section class="checkout">
+  @if (orderPlaced()) {
+    <h1>✅ Order confirmed!</h1>
+    <p>Thank you, {{ name }}. Your order is on its way.</p>
+    <a routerLink="/store">Back to store</a>
+  } @else if (cart.items().length === 0) {
+    <p>Your cart is empty.</p>
+    <a routerLink="/store">← Back to store</a>
+  } @else {
+    <h1>Checkout</h1>
+    <p>Items: {{ cart.count() }} · Total: <strong>{{ cart.total() }} EGP</strong></p>
+
+    <form #orderForm="ngForm" (ngSubmit)="placeOrder()">
+      <label>Full name
+        <input name="name" [(ngModel)]="name" required />
+      </label>
+      <label>Phone
+        <input name="phone" [(ngModel)]="phone" required pattern="[0-9]{11}" placeholder="01xxxxxxxxx" />
+      </label>
+      <label>Address
+        <textarea name="address" [(ngModel)]="address" required></textarea>
+      </label>
+      <label>Payment
+        <select name="payment" [(ngModel)]="payment">
+          <option value="cash">Cash on delivery</option>
+          <option value="card">Card</option>
+        </select>
+      </label>
+      <button type="submit" [disabled]="orderForm.invalid">Place order</button>
+    </form>
+  }
+</section>

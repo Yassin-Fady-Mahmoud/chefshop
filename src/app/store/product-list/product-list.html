@@ -1,0 +1,31 @@
+<section class="store">
+  <header class="top">
+    <h1>ChefShop Store</h1>
+    <a routerLink="/store/cart" class="cart-link">🛒 Cart ({{ cart.count() }})</a>
+  </header>
+
+  <nav class="filters">
+    @for (category of categories; track category) {
+      <button
+        [class.active]="category === selectedCategory()"
+        (click)="selectCategory(category)">
+        {{ category }}
+      </button>
+    }
+  </nav>
+
+  <div class="grid">
+    @for (product of filteredProducts(); track product.id) {
+      <article class="card">
+        <img class="image" [src]="product.image" [alt]="product.name" loading="lazy" />
+        <span class="tag">{{ product.category }}</span>
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        <div class="bottom">
+          <strong>{{ product.price }} EGP</strong>
+          <button (click)="cart.add(product)">Add to cart</button>
+        </div>
+      </article>
+    }
+  </div>
+</section>

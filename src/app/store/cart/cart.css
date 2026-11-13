@@ -1,0 +1,15 @@
+/* Uses Member 1's shared colors (styles.scss) */
+.cart { max-width: 800px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem 1.6rem; }
+.row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.name { display: flex; align-items: center; gap: 10px; }
+.name img { width: 52px; height: 39px; object-fit: cover; border-radius: 6px; }
+.qty { display: flex; align-items: center; gap: 8px; }
+.qty button { width: 30px; height: 30px; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 50%; cursor: pointer; }
+.remove { background: none; border: none; color: var(--danger); font: inherit; cursor: pointer; }
+.summary { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.actions { display: flex; gap: 12px; align-items: center; }
+.primary { background: var(--primary); color: #fff; padding: .55rem 1.1rem; border-radius: 999px; font-weight: 600; text-decoration: none; }
+.primary:hover { background: var(--primary-dark); }
+
+/* Phone: stack each row */
+@media (max-width: 600px) { .row { grid-template-columns: 1fr 1fr; } }

@@ -1,0 +1,23 @@
+/* Uses Member 1's shared colors (styles.scss), so light + dark mode both match */
+.top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.cart-link { background: var(--primary); color: #fff; padding: .55rem 1.1rem; border-radius: 999px; font-weight: 600; text-decoration: none; }
+.cart-link:hover { background: var(--primary-dark); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.filters button { border: 2px solid var(--accent); background: transparent; color: var(--text); padding: 6px 14px; border-radius: 999px; font: inherit; cursor: pointer; }
+.filters button.active { background: var(--accent); color: #2b2118; }
+
+/* Responsive grid: 4 columns on big screens */
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.image { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+.tag { font-size: 12px; color: var(--accent); font-weight: 600; }
+.card h3 { margin: 0; font-size: 1.05rem; }
+.card p { margin: 0; color: var(--muted); font-size: .9rem; flex: 1; }
+.bottom { display: flex; justify-content: space-between; align-items: center; }
+.bottom button { background: var(--primary); color: #fff; border: none; padding: 6px 12px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+.bottom button:hover { background: var(--primary-dark); }
+
+/* Tablet: 2 columns */
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+/* Phone: 1 column */
+@media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
