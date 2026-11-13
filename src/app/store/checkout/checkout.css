@@ -1,7 +1,7 @@
-:host { display: block; min-height: 100vh; background: linear-gradient(180deg, #f1f8ec 0%, #d7ebcb 100%); }
-.checkout { max-width: 500px; margin: 0 auto; padding: 16px; font-family: system-ui, sans-serif; }
+/* Uses Member 1's shared colors (styles.scss); labels + inputs are styled globally */
+.checkout { max-width: 500px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem 1.6rem; }
 form { display: flex; flex-direction: column; gap: 12px; }
-label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
-input, textarea, select { padding: 8px; border: 1px solid #ccc; border-radius: 6px; font: inherit; }
-button { background: #b3261e; color: #fff; border: none; padding: 10px; border-radius: 8px; cursor: pointer; }
-button:disabled { background: #ccc; cursor: not-allowed; }
+textarea { padding: .6rem .8rem; border: 1px solid var(--border); border-radius: 8px; font: inherit; background: var(--bg); color: var(--text); }
+button { background: var(--primary); color: #fff; border: none; padding: .7rem; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+button:hover:not(:disabled) { background: var(--primary-dark); }
+button:disabled { opacity: .5; cursor: not-allowed; }
