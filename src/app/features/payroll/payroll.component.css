@@ -1,0 +1,18 @@
+/* Uses Member 1's shared colors (styles.scss), so light + dark mode both match */
+.payroll { display: flex; flex-direction: column; gap: 1.2rem; padding: 1rem 0; }
+h1 { margin: 0; }
+h3 { margin: 0 0 .6rem; font-size: 1.05rem; }
+
+td input { width: 7rem; }
+.net { font-weight: 700; color: var(--ok); }
+tfoot td { border-top: 2px solid var(--border); }
+.remove { background: none; border: none; color: var(--danger); font: inherit; cursor: pointer; }
+
+.card-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem; }
+.fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-bottom: .8rem; }
+.card-form button { background: var(--primary); color: #fff; border: none; padding: .55rem 1.2rem; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+.card-form button:disabled { opacity: .5; cursor: not-allowed; }
+.report-row { display: flex; align-items: end; gap: 1rem; flex-wrap: wrap; }
+
+/* Tablet + phone */
+@media (max-width: 700px) { .fields { grid-template-columns: 1fr; } }

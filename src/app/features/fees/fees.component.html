@@ -1,0 +1,77 @@
+<section class="fees">
+  <h1>{{ isStudent() ? 'My Fees' : 'Student Fees' }}</h1>
+
+  <!-- 1. Summary (staff only) -->
+  @if (!isStudent()) {
+    <div class="summary">
+      <div class="box"><span>Total billed</span><strong>{{ fees.totalBilled() | number }} EGP</strong></div>
+      <div class="box paid"><span>Collected</span><strong>{{ fees.totalPaid() | number }} EGP</strong></div>
+      <div class="box unpaid"><span>Outstanding</span><strong>{{ fees.outstanding() | number }} EGP</strong></div>
+    </div>
+
+    <!-- 2. Create invoice (staff only) -->
+    <form class="add-form" #invoiceForm="ngForm" (ngSubmit)="createInvoice()">
+      <h3>Create invoice</h3>
+      <div class="fields">
+        <label>Student
+          <select name="student" [(ngModel)]="studentUsername">
+            @for (s of students; track s.username) { <option [value]="s.username">{{ s.name }}</option> }
+          </select>
+        </label>
+        <label>Module
+          <select name="module" [(ngModel)]="module">
+            @for (m of modules; track m) { <option [value]="m">{{ m }}</option> }
+          </select>
+        </label>
+        <label>Amount (EGP)
+          <input name="amount" type="number" min="1" [(ngModel)]="amount" required />
+        </label>
+        <label>Due date
+          <input name="dueDate" type="date" [(ngModel)]="dueDate" required />
+        </label>
+      </div>
+      <button type="submit" [disabled]="invoiceForm.invalid">Create invoice</button>
+    </form>
+  }
+
+  <!-- 3. Tabs -->
+  <div class="tabs">
+    <button [class.active]="tab() === 'all'" (click)="tab.set('all')">All</button>
+    <button [class.active]="tab() === 'unpaid'" (click)="tab.set('unpaid')">Unpaid</button>
+    <button [class.active]="tab() === 'paid'" (click)="tab.set('paid')">Payment history</button>
+  </div>
+
+  <!-- 4. Invoices table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          @if (!isStudent()) { <th>Student</th> }
+          <th>Module</th><th>Amount</th><th>Due</th><th>Status</th><th>Paid on</th>
+          @if (!isStudent()) { <th></th> }
+        </tr>
+      </thead>
+      <tbody>
+        @for (inv of visibleInvoices(); track inv.id) {
+          <tr>
+            @if (!isStudent()) { <td>{{ inv.studentName }}</td> }
+            <td>{{ inv.module }}</td>
+            <td>{{ inv.amount | number }}</td>
+            <td>{{ inv.dueDate }}</td>
+            <td><span class="pill" [class.paid]="inv.status === 'paid'" [class.unpaid]="inv.status === 'unpaid'">{{ inv.status }}</span></td>
+            <td>{{ inv.paidOn ?? '—' }}</td>
+            @if (!isStudent()) {
+              <td>
+                @if (inv.status === 'unpaid') {
+                  <button class="mark" (click)="fees.markPaid(inv.id)">Mark paid</button>
+                }
+              </td>
+            }
+          </tr>
+        } @empty {
+          <tr><td colspan="7" class="empty">No invoices here.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
