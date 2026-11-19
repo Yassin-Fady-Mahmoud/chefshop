@@ -1,0 +1,102 @@
+<section class="budget">
+  <h1>Department Budget</h1>
+
+  <!-- 1. Summary cards -->
+  <div class="summary">
+    <div class="box income">
+      <span>Total income</span>
+      <strong>{{ budget.totalIncome() | number }} EGP</strong>
+    </div>
+    <div class="box expense">
+      <span>Total expenses</span>
+      <strong>{{ budget.totalExpenses() | number }} EGP</strong>
+    </div>
+    <div class="box" [class.income]="budget.balance() >= 0" [class.expense]="budget.balance() < 0">
+      <span>Balance</span>
+      <strong>{{ budget.balance() | number }} EGP</strong>
+    </div>
+  </div>
+
+  <!-- 2. Charts -->
+  <div class="charts">
+    <div class="chart-card">
+      <h3>Income vs expenses per department</h3>
+      <div class="chart-box"><canvas #barChart></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Where the money goes</h3>
+      <div class="chart-box"><canvas #pieChart></canvas></div>
+    </div>
+  </div>
+
+  <!-- 3. Profit per department -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Department</th><th>Income</th><th>Expenses</th><th>Profit</th></tr>
+      </thead>
+      <tbody>
+        @for (row of budget.byDepartment(); track row.department) {
+          <tr>
+            <td>{{ row.department }}</td>
+            <td>{{ row.income | number }}</td>
+            <td>{{ row.expenses | number }}</td>
+            <td [class.plus]="row.profit >= 0" [class.minus]="row.profit < 0">{{ row.profit | number }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. Add a new entry -->
+  <form class="add-form" #entryForm="ngForm" (ngSubmit)="addEntry()">
+    <h3>Add income or expense</h3>
+    <div class="fields">
+      <label>Department
+        <select name="department" [(ngModel)]="department">
+          @for (d of departments; track d) { <option [value]="d">{{ d }}</option> }
+        </select>
+      </label>
+      <label>Type
+        <select name="type" [(ngModel)]="type">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </label>
+      <label>Description
+        <input name="description" [(ngModel)]="description" required />
+      </label>
+      <label>Amount (EGP)
+        <input name="amount" type="number" min="1" [(ngModel)]="amount" required />
+      </label>
+    </div>
+    <button type="submit" [disabled]="entryForm.invalid">Add entry</button>
+  </form>
+
+  <!-- 5. All entries -->
+  <div class="list-head">
+    <h3>All entries</h3>
+    <select [value]="filter()" (change)="filter.set($any($event.target).value)">
+      <option value="All">All departments</option>
+      @for (d of departments; track d) { <option [value]="d">{{ d }}</option> }
+    </select>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Department</th><th>Type</th><th>Description</th><th>Amount</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (e of filteredEntries(); track e.id) {
+          <tr>
+            <td>{{ e.department }}</td>
+            <td><span class="pill" [class.income]="e.type === 'income'" [class.expense]="e.type === 'expense'">{{ e.type }}</span></td>
+            <td>{{ e.description }}</td>
+            <td>{{ e.amount | number }}</td>
+            <td><button class="remove" (click)="budget.remove(e.id)">Remove</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

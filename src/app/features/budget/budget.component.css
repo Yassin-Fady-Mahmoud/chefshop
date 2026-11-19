@@ -1,0 +1,39 @@
+/* Uses Member 1's shared colors (styles.scss), so light + dark mode both match */
+.budget { display: flex; flex-direction: column; gap: 1.2rem; padding: 1rem 0; }
+h1 { margin: 0; }
+h3 { margin: 0 0 .6rem; font-size: 1.05rem; }
+
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem; display: flex; flex-direction: column; gap: .2rem; }
+.box span { color: var(--muted); font-size: .9rem; }
+.box strong { font-size: 1.4rem; }
+.box.income strong { color: var(--ok); }
+.box.expense strong { color: var(--primary); }
+
+.charts { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; }
+.chart-card { min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem; }
+.chart-box { position: relative; height: 260px; }
+
+.plus { color: var(--ok); font-weight: 700; }
+.minus { color: var(--danger); font-weight: 700; }
+
+.add-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem; }
+.fields { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; margin-bottom: .8rem; }
+.add-form button { background: var(--primary); color: #fff; border: none; padding: .6rem 1.2rem; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
+.add-form button:disabled { opacity: .5; cursor: not-allowed; }
+
+.list-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.pill { padding: 2px 10px; border-radius: 999px; font-size: .85rem; color: #fff; }
+.pill.income { background: var(--ok); }
+.pill.expense { background: var(--primary); }
+.remove { background: none; border: none; color: var(--danger); font: inherit; cursor: pointer; }
+
+/* Tablet */
+@media (max-width: 900px) {
+  .charts { grid-template-columns: 1fr; }
+  .fields { grid-template-columns: repeat(2, 1fr); }
+}
+/* Phone */
+@media (max-width: 500px) {
+  .summary, .fields { grid-template-columns: 1fr; }
+}
