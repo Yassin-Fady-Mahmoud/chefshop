@@ -1,0 +1,53 @@
+<section class="payroll">
+  <h1>Staff Payroll</h1>
+
+  <!-- 1. Salary table: allowances and deductions can be edited -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Job</th><th>Salary</th><th>Allowances</th><th>Deductions</th><th>Net pay</th><th></th></tr>
+      </thead>
+      <tbody>
+        @for (s of payroll.staff(); track s.id) {
+          <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.job }}</td>
+            <td>{{ s.baseSalary | number }}</td>
+            <td><input type="number" min="0" [value]="s.allowances" (change)="setNumber(s, 'allowances', $any($event.target).value)" [attr.aria-label]="'Allowances for ' + s.name" /></td>
+            <td><input type="number" min="0" [value]="s.deductions" (change)="setNumber(s, 'deductions', $any($event.target).value)" [attr.aria-label]="'Deductions for ' + s.name" /></td>
+            <td class="net">{{ payroll.net(s) | number }}</td>
+            <td><button class="remove" (click)="payroll.remove(s.id)">Remove</button></td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr><td colspan="5"><strong>Total net pay</strong></td><td class="net">{{ payroll.totalNet() | number }}</td><td></td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- 2. Add staff -->
+  <form class="card-form" #staffForm="ngForm" (ngSubmit)="addStaff()">
+    <h3>Add staff member</h3>
+    <div class="fields">
+      <label>Name <input name="name" [(ngModel)]="name" required /></label>
+      <label>Job
+        <select name="job" [(ngModel)]="job">
+          <option value="Chef">Chef</option>
+          <option value="Shop staff">Shop staff</option>
+        </select>
+      </label>
+      <label>Base salary (EGP) <input name="baseSalary" type="number" min="1" [(ngModel)]="baseSalary" required /></label>
+    </div>
+    <button type="submit" [disabled]="staffForm.invalid">Add</button>
+  </form>
+
+  <!-- 3. Monthly JSON report -->
+  <div class="card-form">
+    <h3>Monthly salary report (JSON)</h3>
+    <div class="report-row">
+      <label>Month <input type="month" name="month" [(ngModel)]="month" /></label>
+      <button type="button" (click)="downloadReport()">Download JSON</button>
+    </div>
+  </div>
+</section>
