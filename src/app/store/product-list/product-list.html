@@ -1,7 +1,7 @@
 <section class="store">
   <header class="top">
     <h1>ChefShop Store</h1>
-    <a routerLink="/store/cart" class="cart-link">🛒 Cart ({{ cart.count() }})</a>
+    <a routerLink="/store/cart" class="cart-link" [class.bump]="cartBump()">🛒 Cart ({{ cart.count() }})</a>
   </header>
 
   <nav class="filters">
@@ -23,7 +23,9 @@
         <p>{{ product.description }}</p>
         <div class="bottom">
           <strong>{{ product.price }} EGP</strong>
-          <button (click)="cart.add(product)">Add to cart</button>
+          <button [class.pop]="popId() === product.id" (click)="addToCart(product)">
+            {{ popId() === product.id ? 'Added ✓' : 'Add to cart' }}
+          </button>
         </div>
       </article>
     }

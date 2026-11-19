@@ -17,6 +17,20 @@
 .bottom button { background: var(--primary); color: #fff; border: none; padding: 6px 12px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; }
 .bottom button:hover { background: var(--primary-dark); }
 
+/* 🆕 Bonus animations */
+.bottom button.pop { animation: pop .4s ease-out; background: var(--ok); }
+.cart-link.bump { animation: bump .5s ease-out; }
+@keyframes pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+@keyframes bump {
+  0%, 100% { transform: translateY(0); }
+  30%      { transform: translateY(-6px) rotate(-3deg); }
+  60%      { transform: translateY(0) rotate(2deg); }
+}
+
 /* Tablet: 2 columns */
 @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 /* Phone: 1 column */

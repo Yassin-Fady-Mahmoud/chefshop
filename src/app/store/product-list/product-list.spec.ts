@@ -33,4 +33,12 @@ describe('ProductList', () => {
     const cards = fixture.nativeElement.querySelectorAll('.card');
     expect(cards.length).toBe(2);
   });
+    it('should add to cart and show "Added ✓"', () => {
+    const firstButton = fixture.nativeElement.querySelector('.bottom button') as HTMLButtonElement;
+    firstButton.click();
+    fixture.detectChanges();
+    expect(component['cart'].count()).toBe(1);
+    expect(firstButton.textContent).toContain('Added');
+    expect(firstButton.classList).toContain('pop');
+  });
 });
